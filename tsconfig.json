@@ -1,0 +1,46 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+      "jsx": "react",
+      "lib": [
+        "dom",
+        "es2015",
+        "es2016",
+        "es2017.object",
+      ],
+      "outDir": "./dist/",
+      "sourceMap": true,
+      "noImplicitAny": true,
+      "module": "commonjs",
+      "alwaysStrict": true,
+      "moduleResolution": "node",
+      "target": "ES2017",
+      "experimentalDecorators": true,
+      "noUnusedLocals": false,
+      "noUnusedParameters": false,
+      "removeComments": false,
+      "preserveConstEnums": true,
+      "allowJs": true,
+      "esModuleInterop": true,
+    },
+    "include": [
+      "src/**/*.ts", "src/**/*.tsx"
+    ],
+    "formatCodeOptions": {
+      "indentSize": 4,
+      "tabSize": 4,
+      "newLineCharacter": "\r\n",
+      "convertTabsToSpaces": true,
+      "insertSpaceAfterCommaDelimiter": true,
+      "insertSpaceAfterSemicolonInForStatements": true,
+      "insertSpaceBeforeAndAfterBinaryOperators": true,
+      "insertSpaceAfterKeywordsInControlFlowStatements": true,
+      "insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
+      "insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": false,
+      "placeOpenBraceOnNewLineForFunctions": false,
+      "placeOpenBraceOnNewLineForControlBlocks": false
+    },
+    "exclude": ["node_modules"]
+  }
+  
+  
