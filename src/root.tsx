@@ -4,7 +4,7 @@ import {Provider} from 'react-redux'
 import {Store} from 'redux'
 import {State} from './store'
 import App from './components/App'
-import {Switch, Route} from 'react-router-dom'
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
 
 export interface Props {
   readonly history?: History,
@@ -13,16 +13,18 @@ export interface Props {
 
 export const Root: StatelessComponent<Props> = ({store}) => (
     <Provider store={ store }>
-        <Switch>
-            <Route
-                {...{
-                    name: 'main',                  
-                    path: '/',                        
-                    component: App, 
-                    exact: true
-                }}
-            />
-        </Switch>
+        <BrowserRouter>
+            <Switch>
+                <Route
+                    {...{
+                        name: 'main',                  
+                        path: '/',                        
+                        component: App, 
+                        exact: true
+                    }}
+                />
+            </Switch>
+        </BrowserRouter>
     </Provider>
 )
 

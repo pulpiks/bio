@@ -1,9 +1,10 @@
 import {applyMiddleware, combineReducers, compose, createStore, GenericStoreEnhancer} from 'redux'
 import {createBrowserHistory} from 'history'
 import thunk from 'redux-thunk'
+import {bio, BioState} from '../reducers/bio'
 
 export interface State {
-
+    readonly bio: BioState
 }
 
 interface CustomWindow extends Window {
@@ -13,7 +14,7 @@ interface CustomWindow extends Window {
 export const history = createBrowserHistory()
 
 const rootReducer = combineReducers<State>({
-    
+    bio
 })
 
 const middleware: GenericStoreEnhancer[] = [
