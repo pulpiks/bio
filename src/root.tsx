@@ -1,28 +1,37 @@
-import * as React from 'react'
-import {createElement, StatelessComponent} from 'react'
-import {Provider} from 'react-redux'
-import {Store} from 'redux'
-import {State} from './store'
+import { createElement, StatelessComponent } from 'react'
+import { Provider } from 'react-redux'
+import { Store } from 'redux'
+import { State } from './store'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import App from './components/App'
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
+import {WrappedRegistrationForm} from './components/FeedbackForm'
 
 export interface Props {
-  readonly history?: History,
-  readonly store: Store<State>,
+  readonly history?: History
+  readonly store: Store<State>
 }
 
-export const Root: StatelessComponent<Props> = ({store}) => (
+export const Root: StatelessComponent<Props> = ({ store }) => (
     <Provider store={ store }>
         <BrowserRouter>
             <Switch>
-                <Route
-                    {...{
-                        name: 'main',                  
-                        path: '/',                        
-                        component: App, 
-                        exact: true
-                    }}
-                />
+                <App>
+                    <Route
+                        {...{
+                            name: 'main',
+                            path: '/',
+                            exact: true,
+                        }}
+                    />
+                    <Route
+                        {...{
+                            name: 'feedback',
+                            path: '/feedback',
+                            component: WrappedRegistrationForm,
+                            exact: true,
+                        }}
+                    />
+                </App>
             </Switch>
         </BrowserRouter>
     </Provider>

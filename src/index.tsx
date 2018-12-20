@@ -1,9 +1,9 @@
-import * as React from 'react'
-import {render} from 'react-dom'
-import {Root} from './root'
-import {store} from './store'
+import { createElement }from 'react'
+import { render } from 'react-dom'
+import { Root } from './root'
+import { store } from './store'
 
 render(
-    <Root store={ store } />, 
-    document.getElementById('root')
+    <Root store={ store } />,
+    document.getElementById('root'),
 )

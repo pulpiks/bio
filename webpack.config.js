@@ -2,14 +2,24 @@ const path = require('path')
 const webpack = require("webpack")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const Dotenv = require("dotenv-webpack")
-// const CleanWebpackPlugin = require("clean-webpack-plugin")
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CleanWebpackPlugin = require("clean-webpack-plugin")
 
 const IS_PRODUCTION = (process.env.NODE_ENV === 'production' || process.env.WEBPACK_MODE === 'production')
 
 
 const plugins = [
-    // new CleanWebpackPlugin("dist"),
     IS_PRODUCTION ? false: new Dotenv(),
+    new CopyWebpackPlugin([
+        {
+            from: 'src/components/**/*',
+            to: './images/[name].[ext]',
+            test: /\.(jpg|gif|png|svg)/g,
+            cache: true,
+        }
+    ], {
+        debug: 'info'
+    }),
     new HtmlWebpackPlugin({
         template: path.resolve(__dirname, "index.html"),
         chunks: [
@@ -21,6 +31,7 @@ const plugins = [
         chunksSortMode: "manual",
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new CleanWebpackPlugin("dist"),
 ].filter(Boolean)
 
 
@@ -87,13 +98,13 @@ module.exports = {
                 }
             },
             {
-                test: /\.(png|jpg)$/,
+                test: /\.(png|jpg|svg)$/,
                 use: [
                     {
                         loader: "file-loader",
                         options: {
                             name: "[name].[ext]",
-                            outputPath: "assets/",
+                            outputPath: "images/",
                         },
                     },
                 ],

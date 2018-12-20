@@ -1,0 +1,18 @@
+{
+    "extends": "./node_modules/tslint-config-airbnb/",
+    "rules": {
+        "no-addition": false,
+        "semicolon": [
+            true,
+            "never",
+            "strict-bound-class-methods"
+        ],
+        "import-name": false,
+        "variable-name": false,
+        "ter-indent": [
+            true,
+            2,
+            { "SwitchCase": 1 },
+        ],
+    }
+}
