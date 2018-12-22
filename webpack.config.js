@@ -12,9 +12,9 @@ const plugins = [
     IS_PRODUCTION ? false: new Dotenv(),
     new CopyWebpackPlugin([
         {
-            from: 'src/components/**/*',
+            from: './src/components/**/*.+(svg|png|jpg)',
             to: './images/[name].[ext]',
-            test: /\.(jpg|gif|png|svg)/g,
+            // test: /\.(jpg|gif|png|svg)/g,
             cache: true,
         }
     ], {
