@@ -1,27 +1,32 @@
+'use strict'
 import {
     GraphQLObjectType,
     GraphQLString,
     GraphQLInt,
     GraphQLSchema,
     GraphQLList,
-    GraphQLNonNull
+    GraphQLNonNull,
+    GraphQLID
   } from 'graphql';
   
-  import Db from './db';
+import Db from './db';
+
   
-  const Feedback = new GraphQLObjectType({
+const Feedback = new GraphQLObjectType({
     name: 'Feedback',
     description: 'Description of feedback',
-    fields () {
+    fields() {
       return {
         id: {
-            type: GraphQLInt,
+            type: GraphQLID,
+            description: 'feedback\'s id',
             resolve (feedback) {
                 return feedback.id;
             }
         },
         email: {
           type: GraphQLString,
+          description: 'feedback\'s email',
           resolve (feedback) {
             return feedback.email;
           }
@@ -34,43 +39,40 @@ import {
         },
       };
     }
-  });
+});
 
   
-  const Query = new GraphQLObjectType({
+const Query = new GraphQLObjectType({
     name: 'Query',
     description: 'Root query object',
-    fields: () => {
-      return {
+    fields: () => ({
         feedback: {
           type: new GraphQLList(Feedback),
           args: {
-            id: {
-              type: GraphQLInt
-            },
             email: {
-              type: GraphQLString
+              type: new GraphQLNonNull(GraphQLString),
             },
             msg: {
-                type: GraphQLString
-            }
+                type: new GraphQLNonNull(GraphQLString),
+            },
           },
           resolve (root, args) {
             return Db.models.feedback.findAll({ where: args });
           }
         },
-      };
-    }
-  });
+    })
+});
   
-  const Mutation = new GraphQLObjectType({
+const Mutation = new GraphQLObjectType({
     name: 'Mutations',
     description: 'Functions to set stuff',
-    fields () {
-      return {
+    fields:() => ({
         addMsg: {
           type: Feedback,
           args: {
+            id: {
+                type: new GraphQLNonNull(GraphQLID)
+            },
             msg: {
               type: new GraphQLNonNull(GraphQLString)
             },
@@ -85,13 +87,13 @@ import {
             });
           }
         },
-      };
-    }
-  });
+    })
+});
   
-  const Schema = new GraphQLSchema({
+const Schema = new GraphQLSchema({
     query: Query,
-    mutation: Mutation
-  });
+    mutation: Mutation,
+    pretty: true,
+});
   
-  export default Schema;
+export default Schema;
