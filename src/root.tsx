@@ -28,7 +28,6 @@ export const Root: StatelessComponent<Props> = ({ store }) => (
                             name: 'feedback',
                             path: '/feedback',
                             component: Feedback,
-                            exact: true,
                         }}
                     />
                 </App>

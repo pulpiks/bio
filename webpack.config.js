@@ -163,6 +163,7 @@ module.exports = {
         port: 9090,
         clientLogLevel: 'error',
         watchContentBase: true,
+        historyApiFallback: true,
     },
     devtool: "hidden-source-map",
 };

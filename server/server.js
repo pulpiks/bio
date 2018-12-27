@@ -2,6 +2,7 @@
 
 const express = require("express");
 const GraphHTTP = require('express-graphql');
+const path = require("path");
 // const Schema = require('./schema');
 const os = require("os");
 const bodyParser = require('body-parser');
@@ -42,6 +43,10 @@ models.sequelize.sync()
     });
 
 app.use(express.static("dist"));
+
+app.get('*',  (request, response) => {
+    response.sendFile(path.join(__dirname, '../dist', 'index.html'))
+})
 
 app.use(bodyParser.json());
 
