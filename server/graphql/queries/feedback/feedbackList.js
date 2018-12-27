@@ -19,8 +19,6 @@ export default {
         const limit = args.first || 10;
         delete args.offset;
         delete args.first;
-        console.log('///')
-        console.log(models.feedback)
         return models.feedback.findAll ({
             where: args,
             offset,

@@ -1,154 +1,161 @@
 import {createElement, PureComponent, SyntheticEvent} from 'react'
-import {
-    Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete,
-} from 'antd'
+
 import { FormComponentProps } from 'antd/lib/form';
+import { ApolloProvider, Query, Mutation } from 'react-apollo';
+import { Dispatch } from '../../store';
+import { connect } from 'react-redux';
+import { client , gql} from '../../actions/graphql';
+import { WrappedFeedbackForm } from './form';
+import { Button, message, Icon } from 'antd';
   
-const FormItem = Form.Item
-const Option = Select.Option
-const Textarea = Input.TextArea
 
-class RegistrationForm extends PureComponent<FormComponentProps> {
-    state = {
-        confirmDirty: false,
-    };
+interface RegistrationFormState {
+    mutate: boolean
+    feedback?: {
+        email: string,
+        nickname: string,
+        msg: string
+    }
+}
 
-    handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
-        e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
+type RegistrationFormOwnProps = FormComponentProps;
+type RegistrationFormProps = RegistrationFormOwnProps;
+
+// @connect(
+//     (_, ownProps: FormComponentProps) => ({
+//         ...ownProps
+//     }), null
+// )
+
+// @(connect(null, null) as any)
+
+
+// const FEEDBACk_QUERY =  gql `
+// {feedback {
+//     id,
+//     email, 
+//     msg,
+//     nickname
+// }}
+// `
+
+
+const FEEDBACK_QUERY =  gql`
+mutation createFeedback($feedback: feedbackinput) {
+    createFeedback(feedback: $feedback) {
+      id
+      email
+      msg
+      nickname
+    }
+}
+`;
+
+// client.query({
+//     query: FEEDBACK_QUERY,
+// })
+
+
+{/* <Query query={FEEDBACK_QUERY}>
+    {({ loading, error, data }) => {
+        if (loading) return <p>Loading...</p>;
+        if (error) return <p>Error :(</p>;
+        console.log(data)
+        const {feedback} = data
+    }}
+</Query> */}
+
+
+const showButtonbackToForm: React.SFC = () => {
+    return (
+        <Button type="primary" block onClick={this.showForm}>Back to form</Button>
+    )
+}
+  
+class RegistrationForm extends PureComponent<RegistrationFormProps, RegistrationFormState> {
+   state = {
+       mutate: false
+   }
+    constructor(props: RegistrationFormProps) {
+        super(props)
+    }
+
+    
+
+    renderFailure() {
+        message.error('This is a message of error');
+        return (
+            <div>
+                <p>Your data hasn't been successfully sent. Please try it out again!</p>
+                {this.renderButton()}
+            </div>
+        )
+    }
+
+    renderButton = () => {
+        return (
+            <Button type="primary" block onClick={this.showForm}><Icon type="left" />Back to form</Button>
+        )
+    }
+
+    showForm = () => {
+        this.setState({
+            mutate: true
         })
     }
 
-    handleConfirmBlur = (e: SyntheticEvent<HTMLInputElement>) => {
-        const value = (e.target as HTMLInputElement).value;
-        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
+    renderSuccess() {
+        return (
+            <div>
+                <p>Your data has been successfully sent</p>
+                {this.renderButton()}
+            </div>
+        )
     }
 
     render() {
-        const { getFieldDecorator } = this.props.form;
-
-        const formItemLayout = {
-            labelCol: {
-                xs: { span: 24 },
-                sm: { span: 8 },
-            },
-            wrapperCol: {
-                xs: { span: 24 },
-                sm: { span: 16 },
-            },
-        };
-        const tailFormItemLayout = {
-            wrapperCol: {
-                xs: {
-                span: 24,
-                offset: 0,
-                },
-                sm: {
-                span: 16,
-                offset: 8,
-                },
-            },
-        };
-        const prefixSelector = getFieldDecorator(
-            'prefix', {
-                initialValue: '86',
-            }
-        )(
-            <Select style={{ width: 70 }}>
-                <Option value="86">+86</Option>
-                <Option value="87">+87</Option>
-            </Select>
-        );
-
         return (
-            <Form onSubmit={this.handleSubmit}>
-                <FormItem
-                    {...formItemLayout}
-                    label="E-mail"
-                >
-                {getFieldDecorator('email', {
-                    rules: [{
-                        type: 'email', message: 'The input is not valid E-mail!',
-                    }, {
-                        required: true, message: 'Please input your E-mail!',
-                    }],
-                })(
-                    <Input />
-                )}
-                </FormItem>
+            <ApolloProvider client={client}>
+                <h1> Thanks for your interest! Please fill out this form and I’ll get back to you as quickly as I can. It usually takes 3-4 days to reply. :) </h1>
                 
-                
-                <FormItem
-                    {...formItemLayout}
-                    label={(
-                        <span>
-                        Nickname&nbsp;
-                        <Tooltip title="What do you want others to call you?">
-                            <Icon type="question-circle-o" />
-                        </Tooltip>
-                        </span>
-                    )}
-                >
-                    {getFieldDecorator('nickname', {
-                        rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
-                    })(
-                        <Input />
-                    )}
-                </FormItem>
-                {/*  */}
-                <FormItem
-                    {...formItemLayout}
-                    label={(
-                        <span>
-                        Text&nbsp;
-                        <Tooltip title="What do you want write down here?">
-                            <Icon type="align-left" />
-                        </Tooltip>
-                        </span>
-                    )}
-                >
-                    {getFieldDecorator('text', {
-                        rules: [{ required: true, message: 'Please input your text!', whitespace: true }],
-                    })(
-                        <Textarea rows={4} />
-                    )}
-                </FormItem>
-                {/*  */}
-                          
-                <FormItem
-                    {...formItemLayout}
-                    label="Captcha"
-                    extra="We must make sure that your are a human."
-                    >
-                    <Row gutter={8}>
-                        <Col span={12}>
-                        {getFieldDecorator('captcha', {
-                            rules: [{ required: true, message: 'Please input the captcha you got!' }],
-                        })(
-                            <Input />
-                        )}
-                        </Col>
-                        <Col span={12}>
-                        <Button>Get captcha</Button>
-                        </Col>
-                    </Row>
-                </FormItem>
-                <FormItem {...tailFormItemLayout}>
-                    {getFieldDecorator('agreement', {
-                        valuePropName: 'checked',
-                    })(
-                        <Checkbox>I have read the <a href="">agreement</a></Checkbox>
-                    )}
-                </FormItem>
-                <FormItem {...tailFormItemLayout}>
-                    <Button type="primary" htmlType="submit">Register</Button>
-                </FormItem>
-            </Form>
+                <Mutation mutation={FEEDBACK_QUERY}
+                /*variables={{ feedback: this.state.feedback }}*/ onError={(e) => {
+                    console.log(e)
+                }} update={(_, mutationResult) => {
+                    debugger
+                }}>
+                    {(createFeedback, result) => {
+                        const { data, loading, error, called } = result;
+                        if (!called || this.state.mutate) {
+                            return (
+                                <WrappedFeedbackForm 
+                                    onSubmit={(feedback: any) => {
+                                        this.setState({
+                                            mutate: false
+                                        })
+                                        createFeedback({variables: {
+                                            feedback
+                                        }})
+                                    }}
+                                />
+                            )
+                        }
+                        if (loading) {
+                            return <div>LOADING</div>;
+                        }
+                        if (error) {
+                            return <div>{this.renderFailure()}</div>
+                        }
+                        return <div>{this.renderSuccess()}</div>
+                    }}
+                </Mutation>
+            </ApolloProvider>
         );
     }
 }
 
-export const WrappedRegistrationForm = Form.create()(RegistrationForm);
+
+
+export const Feedback = connect<null, {}, RegistrationFormOwnProps>(
+    null,
+)(RegistrationForm);

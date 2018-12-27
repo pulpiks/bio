@@ -1,7 +1,26 @@
-import { applyMiddleware, combineReducers, compose, createStore, GenericStoreEnhancer } from 'redux'
+import { 
+  applyMiddleware, 
+  combineReducers, 
+  compose, 
+  createStore, 
+  GenericStoreEnhancer, 
+  // Dispatch as DispatchInterface 
+} from 'redux'
 import { createBrowserHistory } from 'history'
 import thunk from 'redux-thunk'
 import { bio, BioState } from '../reducers/bio'
+
+// export type Dispatch = DispatchInterface<State>
+export type Dispatch = DispatchInterface<State>
+
+
+export type DispatchInterface<S> = <NestedA>(action: NestedA|ThunkFunction<S>) => NestedA
+
+export type GetState<S> = () => S
+
+export type ThunkFunction<S, R = any> = (dispatch: DispatchInterface<S>, getState: GetState<S>) => R // tslint:disable-line:no-any
+
+
 
 export interface State {
   readonly bio: BioState

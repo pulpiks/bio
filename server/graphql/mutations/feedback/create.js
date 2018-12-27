@@ -13,6 +13,7 @@ export default {
         return models.feedback.build({
             msg: args.feedback.msg,
             email: args.feedback.email,
+            nickname: args.feedback.nickname,
         })
         .save()
         .then(function(newFeedback) {

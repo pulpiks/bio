@@ -31,6 +31,12 @@ export default new GraphQLObjectType({
                   return feedback.msg;
                 }
             },
+            nickname: {
+                type: GraphQLString,
+                resolve (feedback) {
+                  return feedback.nickname;
+                }
+            },
         };
     }
 });

@@ -49,7 +49,7 @@ module.exports = {
         publicPath: IS_PRODUCTION ? './' : '/',
     },
     resolve: {
-        extensions: ['.ts','.tsx', '.js'],
+        extensions: ['.ts','.tsx', '.js', '.mjs', '.json'],
         modules: [
             "node_modules",
             path.resolve(__dirname, "src"),
@@ -61,6 +61,11 @@ module.exports = {
     plugins: plugins,
     module: {
         rules: [
+            {
+                test: /\.mjs$/,
+                include: /node_modules/,
+                type: "javascript/auto",
+            },
             {
                 type: 'javascript/auto',
                 test: /\.(json)/,

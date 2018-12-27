@@ -19,6 +19,13 @@ module.exports = function(sequelize, DataTypes) {
             validate: {
                 notEmpty: true
             }
+        },
+        nickname: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
         }
     }, {
         // timestamps: false,

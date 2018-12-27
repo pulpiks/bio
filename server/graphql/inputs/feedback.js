@@ -11,5 +11,6 @@ export default new GraphQLInputObjectType({
     fields: () => ({
         msg: { type: GraphQLString },
         email: { type: GraphQLString },
+        nickname: { type: GraphQLString },
     })
 });

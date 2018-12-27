@@ -16,3 +16,19 @@ export default new GraphQLSchema({
         fields: mutations
     })
 });
+
+
+/*
+mutation{  
+    createFeedback(feedback: {
+        msg: "asdasd",
+        email: "asdasdasd@sdad.ru",
+        nickname: "asdasdasdasd",
+      }) {
+      id,
+      email,
+      msg,
+    	nickname
+    }
+}
+*/
