@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "watch": "webpack --watch", 
+    "watch": "webpack --watch",
     "start": "webpack-dev-server --hot --host 0.0.0.0",
     "build-dev": "webpack",
     "build-prod": "NODE_ENV=production webpack",
@@ -75,6 +75,7 @@
     "body-parser": "^1.18.3",
     "cn-decorator": "^2.1.0",
     "concurrently": "^4.1.0",
+    "contentful": "^7.0.5",
     "dotenv-webpack": "^1.5.7",
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",

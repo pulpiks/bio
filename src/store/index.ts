@@ -9,6 +9,7 @@ import {
 import { createBrowserHistory } from 'history'
 import thunk from 'redux-thunk'
 import { bio, BioState } from '../reducers/bio'
+import { CategoriesState } from '../reducers/categories';
 
 // export type Dispatch = DispatchInterface<State>
 export type Dispatch = DispatchInterface<State>
@@ -24,6 +25,7 @@ export type ThunkFunction<S, R = any> = (dispatch: DispatchInterface<S>, getStat
 
 export interface State {
   readonly bio: BioState
+  readonly categories: CategoriesState
 }
 
 interface CustomWindow extends Window {
