@@ -40,7 +40,6 @@ class FormComponent extends PureComponent<RegistrationFormProps, RegistrationFor
             if (!err) {
                 console.log('Received values of form: ', values);
             }
-            debugger
             this.props.onSubmit({
                 email: values.email,
                 msg: values.msg,

@@ -1,4 +1,7 @@
+import { RouteComponentProps } from "react-router";
+
 export interface Category {
+    readonly id: string
     readonly title: string
     readonly description: string
     readonly image: string
@@ -8,6 +11,7 @@ export interface Category {
 
 
 export interface Post {
+    readonly id: string
     readonly title: string
     readonly description: string
     readonly image: string

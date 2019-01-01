@@ -5,6 +5,8 @@ import { State } from './store'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import App from './components/App'
 import {Feedback} from './components/FeedbackForm'
+import Category from './components/Categories';
+import Post from './components/Post/post';
 
 export interface Props {
   readonly history?: History
@@ -28,6 +30,21 @@ export const Root: StatelessComponent<Props> = ({ store }) => (
                             name: 'feedback',
                             path: '/feedback',
                             component: Feedback,
+                        }}
+                    />
+                    <Route
+                        {...{
+                            name: 'category',
+                            path: '/category/:slug',
+                            exact: true,
+                            component: Category,
+                        }}
+                    />
+                    <Route
+                        {...{
+                            name: 'post',
+                            path: '/post/:slug',
+                            component: Post,
                         }}
                     />
                 </App>

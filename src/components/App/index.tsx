@@ -5,6 +5,7 @@ import * as contentful from 'contentful'
 import {MenuItems} from '../SocialLinks'
 
 import './styles.css'
+import { Categories } from '../CategoriesMenu';
 
 const {
     Header, Footer, Sider, Content,
@@ -26,20 +27,6 @@ const client = contentful.createClient({
     accessToken: "8bf0b2a52f6a78986b977dde3e4af9ff8b976a5e47cf616cc6a56a0ff5d4e54d"
 });
 
-
-const Sections = () => {
-  return (
-    <Menu>
-        {routes.map((route, i) => {
-            return (
-                <Item key={`${i}-section-menu`}>
-                    <Link to={`/${route}`}>{route}</Link>
-                </Item>
-            )
-        })}
-    </Menu>
-  )
-}
 
 export default class App extends PureComponent {
     async componentDidMount() {
@@ -64,7 +51,7 @@ export default class App extends PureComponent {
                     </Header>
                     <Layout>
                         <Sider>
-                            <Sections />
+                            <Categories />
                         </Sider>
                         <Content>
                             {this.props.children}

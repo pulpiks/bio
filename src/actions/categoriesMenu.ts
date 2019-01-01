@@ -6,19 +6,23 @@ export const CREATE_CATEGORIES_SUCCESS = 'CREATE_CATEGORIES_SUCCESS'
 export const CREATE_CATEGORIES_FAILURE = 'CREATE_CATEGORIES_FAILURE'
 
 export const getCategories = () => {
-    async (dispatch: Dispatch) => {
+    return async (dispatch: Dispatch) => {
         try {
             const res = await client.getEntries({
-                content_type: 'category'
+                content_type: 'category',
+                order: 'sys.createdAt',
             })
-            const categories = res.items
-            dispatch({
+            const categories = res.items.map((item) => ({
+                ...item.fields,
+                ...item.sys
+            }))
+            return dispatch({
                 type: CREATE_CATEGORIES_SUCCESS,
                 data: categories
             })
         }
         catch(e) {
-            dispatch({
+            return dispatch({
                 type: CREATE_CATEGORIES_FAILURE,
                 data: []
             })

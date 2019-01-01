@@ -1,53 +1,58 @@
-import { PureComponent, Fragment, createElement, ReactElement } from 'react'
-import { Button, Layout, Icon, Menu, List } from 'antd'
-import { Link } from 'react-router-dom'
-import {MenuItems} from '../SocialLinks'
-import {getCategories} from '../../actions/categories'
-import { Category } from '../../types/models';
-import { connect } from 'net';
-import { State, Dispatch } from '../../store';
+import { State, Dispatch } from "../../store";
+import {Post, Category as CategoryType} from '../../types/models'
+import { createElement, PureComponent } from "react";
+import { connect } from "react-redux";
+import {getCategory} from '../../actions/category'
+import { RouteComponentProps } from "react-router";
+import { category } from "../../reducers/category";
 
-const { Item } = Menu
-const Sections: React.SFC<Category[]> = (props) => {
-    return (
-        <Menu>
-            {props.map((route, i) => {
-                return (
-                    <Item key={`${i}-section-menu`}>
-                        <Link to={`/${route.slug}`}>{route.title}</Link>
-                    </Item>
-                )
-            })}
-        </Menu>
-    )
+
+interface CategoryProps {
+    readonly category: Post[]
+    readonly categories: CategoryType[]
 }
 
-
-const mapStateToProps = (state: State) => ({
-    categories: state.categories
-})
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    getCategories
-})
-
-
-interface CategoriesProps {
-    readonly categories: Category[]
+interface CategoryDispatchProps {
+    readonly getCategory: (slug: string) => any
 }
 
+interface RouterProps {
+    readonly slug: string
+}
+
+type Props = CategoryProps & CategoryDispatchProps & OwnProps
+
+type OwnProps = RouteComponentProps<RouterProps>
 
 
-@(connect(mapStateToProps, null) as any)
+const mapDispatchToProps = (dispatch: Dispatch): CategoryDispatchProps  => ({
+    getCategory: (slug) => {
+        dispatch(getCategory(slug))
+    }        
+})
 
-export default class Categories extends PureComponent<CategoriesProps> {
-    async componentDidMount() {
-        this.props.dispatch(getCategories())
+
+const mapStateToProps = (state: State, ownProps: OwnProps): CategoryProps => ({
+    categories: state.categories,
+    category: state.category[ownProps.match.params.slug]
+})
+
+class Category extends PureComponent<Props> {
+    componentWillReceiveProps(nextProps: Props) {
+        const {match} = this.props
+        if (!nextProps.category && nextProps.categories.length) {
+            this.props.getCategory(match.params.slug)
+        }
     }
 
     render() {
+        console.log(this.props.category)
         return (
-            <Sections props={this.props.categories}/>
+            <div>
+                {JSON.stringify(this.props.category)}
+            </div>
         )
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category)

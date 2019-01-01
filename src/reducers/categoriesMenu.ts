@@ -1,6 +1,6 @@
 import { Reducer } from 'redux'
 import { Category } from '../types/models';
-import { CREATE_CATEGORIES_FAILURE, CREATE_CATEGORIES_SUCCESS } from '../actions/categories';
+import { CREATE_CATEGORIES_FAILURE, CREATE_CATEGORIES_SUCCESS } from '../actions/categoriesMenu';
 
 export type CategoriesState =  Category[]
 
@@ -14,23 +14,21 @@ export type CreateCategoryTypeSuccess = {
 
 export type CreateCategoryTypeFailure = {
     type: typeof CREATE_CATEGORIES_FAILURE
-    data: []
+    data: Category[]
 } 
 
 type Action = CreateCategoryTypeSuccess | CreateCategoryTypeFailure
 
-export const bio: Reducer<CategoriesState> = (state = defaultState, action: Action) => {
+export const categoriesMenu: Reducer<CategoriesState> = (state = defaultState, action: Action) => {
     switch (action.type) {
         case CREATE_CATEGORIES_SUCCESS: 
             return [
-                ...state,
-                data: action.data
+                ...action.data
             ]
         case CREATE_CATEGORIES_FAILURE: 
-            return {
+            return [
                 ...state,
-                data: []
-            }  
+            ]
         default: return state
     }
 }

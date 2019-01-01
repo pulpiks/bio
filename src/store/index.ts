@@ -9,7 +9,9 @@ import {
 import { createBrowserHistory } from 'history'
 import thunk from 'redux-thunk'
 import { bio, BioState } from '../reducers/bio'
-import { CategoriesState } from '../reducers/categories';
+import { categoriesMenu, CategoriesState } from '../reducers/categoriesMenu';
+import { posts, PostStore } from '../reducers/posts';
+import { category, CategoryStore } from '../reducers/category';
 
 // export type Dispatch = DispatchInterface<State>
 export type Dispatch = DispatchInterface<State>
@@ -22,10 +24,11 @@ export type GetState<S> = () => S
 export type ThunkFunction<S, R = any> = (dispatch: DispatchInterface<S>, getState: GetState<S>) => R // tslint:disable-line:no-any
 
 
-
 export interface State {
   readonly bio: BioState
   readonly categories: CategoriesState
+  readonly posts: PostStore,
+  readonly category: CategoryStore
 }
 
 interface CustomWindow extends Window {
@@ -36,6 +39,9 @@ export const history = createBrowserHistory()
 
 const rootReducer = combineReducers<State>({
   bio,
+  categories: categoriesMenu,
+  category, 
+  posts,
 })
 
 const middleware: GenericStoreEnhancer[] = [

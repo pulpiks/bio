@@ -122,7 +122,6 @@ class RegistrationForm extends PureComponent<RegistrationFormProps, Registration
                 /*variables={{ feedback: this.state.feedback }}*/ onError={(e) => {
                     console.log(e)
                 }} update={(_, mutationResult) => {
-                    debugger
                 }}>
                     {(createFeedback, result) => {
                         const { data, loading, error, called } = result;

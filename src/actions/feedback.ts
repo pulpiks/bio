@@ -56,7 +56,6 @@ export const createFeedback = (payload: CreateActionType) =>
                         //     msg,
                         //     nickname
                         // }
-            debugger  
             // const graphqlTmpl = `query createFeedback(
             //     $msg: String!,
             //     $email: String!,
