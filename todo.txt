@@ -1,14 +1,14 @@
 DONE
-  - view images
-  - inline menu
-  - GRAPHQL form and sending data
-  - styles 
+  + view images
+  + inline menu
+  + GRAPHQL form and sending data
+  + styles 
 
 
 IN PROGRESS
-  - router with history
+  + router with history
   - shipping(pipeline)
-  - contentful for saving static data
+  + contentful for saving static data
 
 
 
