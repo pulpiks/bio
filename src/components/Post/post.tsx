@@ -2,12 +2,18 @@ import { State, Dispatch } from "../../store";
 import { createElement, PureComponent } from "react";
 import { getPost } from "../../actions/post";
 import {connect} from 'react-redux'
-import {Post} from '../../types/models'
+import {Post, Category} from '../../types/models'
 import { RouteComponentProps } from "react-router";
+import {Tag} from 'antd'
+import { getCategoriesSlug } from "../../selectors/categories";
+import { Link } from "react-router-dom";
 
 
 interface PostProps {
     readonly post: Post
+    readonly categories: {
+        readonly [id in string]: Category
+    }
 }
 
 interface PostDispatchProps {
@@ -32,7 +38,8 @@ type RouterProps = RouteComponentProps<Params>
 type OwnProps = RouterProps
 
 const mapStateToProps = (state: State, ownProps: OwnProps): PostProps => ({
-    post: state.posts[ownProps.match.params.slug]
+    post: state.posts[ownProps.match.params.slug],
+    categories: getCategoriesSlug(state)
 })
 
 
@@ -45,10 +52,20 @@ class PostComponent extends PureComponent<Props> {
     }
 
     render() {
-        console.log(this.props.post)
+        if (!this.props.post) {
+            return null
+        }
+        const {title, body, categories} = this.props.post
+        const allCategories = this.props.categories 
         return (
             <div>
-                {JSON.stringify(this.props.post)}
+                <h1>{title}</h1>
+                {categories.map((category) => 
+                     <Link to={`/category/${allCategories[category.id].slug}`} key={`post-category-${category.id}`}>
+                        <Tag>{allCategories[category.id].title}</Tag> 
+                     </Link>
+                )}
+                <article> {body} </article>
             </div>
         )
     }

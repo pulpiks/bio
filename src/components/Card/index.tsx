@@ -3,6 +3,7 @@ import { Card as AntdCard} from 'antd'
 import { cnClass, combineClassName } from '../../utils/cnClass';
 
 import './styles.css'
+import { Link } from 'react-router-dom';
 
 interface CardProps {
   readonly title: string
@@ -31,7 +32,7 @@ export const Card = (data: CardProps) => {
           classNames
         )}
           title={data.title}
-          extra={data.slug && <a href={data.slug}>Go</a>}
+          extra={data.slug && <Link to={data.slug}>Go</Link>}
           >
         <p>{data.description}</p>
       </AntdCard>

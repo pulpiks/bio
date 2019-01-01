@@ -50,9 +50,8 @@ class Category extends PureComponent<Props> {
         if (!this.props.category) {
             return null
         }
-        console.log(this.props.category)
         const items = this.props.category.map((post) => (
-            <Card title={post.title} description={post.description} slug={`/post/${post.slug}`} size="medium"/>
+            <Card title={post.title} description={post.description} slug={`/post/${post.slug}`} size="medium" key={`card-${post.slug}`}/>
         ))
 
         return (
