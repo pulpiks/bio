@@ -29,7 +29,7 @@ export const category: Reducer<CategoryState> = (state = defaultState, action: A
         case CREATE_CATEGORY: 
             return {
                 ...state,
-                [action.slug]: action.data
+                [action.slug]: state[action.slug] ? state[action.slug].concat(action.data) : action.data
             }
         case CREATE_CATEGORY_FAILURE: 
             return {

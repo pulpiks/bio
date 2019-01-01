@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import {getCategory} from '../../actions/category'
 import { RouteComponentProps } from "react-router";
 import { category } from "../../reducers/category";
+import { Card } from "../Card";
 
 
 interface CategoryProps {
@@ -46,10 +47,17 @@ class Category extends PureComponent<Props> {
     }
 
     render() {
+        if (!this.props.category) {
+            return null
+        }
         console.log(this.props.category)
+        const items = this.props.category.map((post) => (
+            <Card title={post.title} description={post.description} slug={`/post/${post.slug}`} size="medium"/>
+        ))
+
         return (
             <div>
-                {JSON.stringify(this.props.category)}
+                {items}
             </div>
         )
     }

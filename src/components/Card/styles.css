@@ -1,0 +1,11 @@
+.card {
+    &_size_lg {
+        width: 500px;
+    }
+    &_size_sm {
+        width: 300px;
+    }
+    &_size_md {
+        width: calc(100% / 3);
+    }
+}
