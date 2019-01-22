@@ -1,5 +1,3 @@
-# bio
-online profile
+# Personal technical blog
 
-
-This is my project like a sandbox where I test modern technologies based on Javascript whether frontend stack or backend.  
+This is kind of sandbox for future and current code experiments. I'm gonna fill in the data as soon as I can. There are some articles, short biography, examples of projects and some conclusions that I make on an as needed basis.. 
