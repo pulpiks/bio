@@ -6,6 +6,7 @@ import {MenuItems} from '../SocialLinks'
 
 import './styles.css'
 import { Categories } from '../CategoriesMenu';
+import { cnClass } from '../../utils/cnClass';
 
 const {
     Header, Footer, Sider, Content,
@@ -14,7 +15,9 @@ const {
 const { Item } = Menu
 
 const Logo = () => (
-    <img src="./images/logo.svg" alt="Kseniia Lvova"/>
+    <Link to={'/'}>
+        <img src="/images/logo.svg" alt="Kseniia Lvova"/>
+    </Link>
 )
 
 const routes = ['work', 'travel', 'explore world', 'minds', 'fun things', 'feedback']
@@ -27,6 +30,8 @@ const client = contentful.createClient({
     accessToken: "8bf0b2a52f6a78986b977dde3e4af9ff8b976a5e47cf616cc6a56a0ff5d4e54d"
 });
 
+
+const cn = cnClass('app')
 
 export default class App extends PureComponent {
     async componentDidMount() {
@@ -45,8 +50,8 @@ export default class App extends PureComponent {
     render() {
         return (
                 <div className="App">
-                    <Header>
-                        <Icon component={Logo} />
+                    <Header className={cn('header')}>
+                        <Icon component={Logo} className={cn('icon')}/>
                         <MenuItems />
                     </Header>
                     <Layout>
@@ -57,7 +62,9 @@ export default class App extends PureComponent {
                             {this.props.children}
                         </Content>
                     </Layout>
-                    <Footer>Ksenia Lvova ©{new Date().getFullYear()}</Footer>
+                    <Footer className={cn('footer')}>
+                        Ksenia Lvova ©{new Date().getFullYear()}
+                    </Footer>
                 </div>
         )
     }

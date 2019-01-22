@@ -12,3 +12,20 @@ ol, ul, dl {
     margin: 0;
 }
 
+.app {
+    &__header {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
+
+    &__icon {
+        display: flex;
+    }
+    
+    &__footer {
+        text-align: center;
+    }
+}
+

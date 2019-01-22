@@ -10,46 +10,50 @@ interface SocialMediaLinksInterface {
     readonly component: ReactElement<{}>
 }
 
+const cn = cnClass('social-links')
+
+
+const iconClasses = cn('icon')
+
 const socialMediaLinks: SocialMediaLinksInterface[] = [
     {
         href: '/asdasd',
-        component:  <Icon type="github" style={{ fontSize: '36px', color: '#333' }}/>
+        component:  <Icon type="github" style={{ color: '#f5f5f5' }}  className={iconClasses}/>
     },
     {
         href: 'facebook',
-        component: <Icon type="facebook"  style={{ fontSize: '36px', color: '#3b5998' }} />,
+        component: <Icon type="facebook"  style={{ color: '#3b5998' }}  className={iconClasses}/>,
     }, 
     {
         href: '/sdsdf',
-        component: <Icon type="twitter"  style={{ fontSize: '36px', color: '#38A1F3' }} />,
+        component: <Icon type="twitter"  style={{ color: '#38A1F3' }}  className={iconClasses}/>,
     }, 
     {
         href: '/sdsdf',
-        component: <Icon type="youtube"  style={{ fontSize: '36px', color: '#ED3833' }} />,
+        component: <Icon type="youtube"  style={{ color: '#ED3833' }} className={iconClasses}/>,
     }, 
     {
         href: '/sdsdf',
-        component: <Icon type="instagram"  style={{ fontSize: '36px', color: '#231F20' }} />,
+        component: <Icon type="instagram"  style={{ color: '#bc2a8d' }} className={iconClasses}/>,
     }, 
     {
         href: '/sdsdf',
-        component: <Icon type="skype"  style={{ fontSize: '36px', color: '#00AFF0' }} />,
+        component: <Icon type="skype"  style={{ color: '#00AFF0' }} className={iconClasses}/>,
     }, 
     {
         href: '/sdsdf',
-        component: <Icon type="medium"  style={{ fontSize: '36px', color: '#00ab6c' }} />,
+        component: <Icon type="medium"  style={{ color: '#00ab6c' }} className={iconClasses}/>,
     }, 
     {
         href: '/sdsdf',
-        component: <Icon type="linkedin"  style={{ fontSize: '36px', color: '#0077B5' }} />,
+        component: <Icon type="linkedin"  style={{ color: '#0077B5' }} className={iconClasses}/>,
     }, 
     {
         href: '/sdsdf',
-        component: <Icon type="mail" style={{ fontSize: '36px' }}/>,
+        component: <Icon type="mail" className={iconClasses}/>,
     }, 
 ]
 
-const cn = cnClass('social-links')
 
 export const MenuItems: React.SFC<{}> = () => {
     return (

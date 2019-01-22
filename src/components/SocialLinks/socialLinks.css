@@ -8,6 +8,21 @@
     justify-content: flex-end;
     
     &__item {
+        height: var(--icon-size);
         margin-left: var(--md); 
+    }
+
+    &__link {
+        height: var(--icon-size);
+        display: block;
+
+        .anticon {
+            vertical-align: 0;
+        }
+
+        svg {
+            width: var(--icon-size);
+            height: var(--icon-size);
+        }
     }
 }
