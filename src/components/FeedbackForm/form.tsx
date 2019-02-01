@@ -1,13 +1,8 @@
 import {createElement, PureComponent, SyntheticEvent} from 'react'
 import {
-    Button, Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, AutoComplete,
+    Button, Form, Input, Tooltip, Icon, Select, Checkbox,
 } from 'antd'
 import { FormComponentProps } from 'antd/lib/form';
-import { ApolloProvider, Query, Mutation } from 'react-apollo';
-import {createFeedback, SuccessCreateFeedbackAction, CreateActionType} from '../../actions/feedback'
-import { Dispatch } from '../../store';
-import { connect } from 'react-redux';
-import { client , gql} from '../../actions/graphql';
 
 const FormItem = Form.Item
 const Option = Select.Option

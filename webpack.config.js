@@ -4,11 +4,13 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const Dotenv = require("dotenv-webpack")
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanWebpackPlugin = require("clean-webpack-plugin")
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const IS_PRODUCTION = (process.env.NODE_ENV === 'production' || process.env.WEBPACK_MODE === 'production')
 
 
 const plugins = [
+    new BundleAnalyzerPlugin(),
     IS_PRODUCTION ? false: new Dotenv(),
     new CopyWebpackPlugin([
         {
