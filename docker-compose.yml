@@ -3,5 +3,5 @@ services:
   frontend:
     image: node:10.15-alpine
     build: .
-    port: 
-      8080:8080
+    ports: 
+      - "8080:8080"
